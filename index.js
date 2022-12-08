@@ -74,11 +74,13 @@ const fetchCourse = (hash) => {
             const result = {}
 
             const document = parse(res.body);
-            document.getElementsByTagName('table')[1].getElementsByTagName('tr').forEach(tr => {
-                const [key, raw] = tr.childNodes;
-                const value = raw.textContent.trim();
-                result[key.textContent.trim()] = !Number.isNaN(Number.parseFloat(value)) ? Number.parseFloat(value) : value;
-            })
+            if(code.attrs['class'].split(' ').length > 0) {
+                document.getElementsByTagName('table')[1].getElementsByTagName('tr').forEach(tr => {
+                    const [key, raw] = tr.childNodes;
+                    const value = raw.textContent.trim();
+                    result[key.textContent.trim()] = !Number.isNaN(Number.parseFloat(value)) ? Number.parseFloat(value) : value;
+                })
+            }
 
             // Why is this even a thing?
             delete result['Ilmoittautuneita'];
