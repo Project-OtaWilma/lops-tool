@@ -47,11 +47,13 @@ const fetchCourses = (hash) => {
             const document = parse(res.body);
             document.getElementsByTagName('tr').filter(tr => tr.childNodes.length == 5).forEach(tr => {
                 const [code, name] = tr.childNodes.filter(td => td.textContent.trim());
-                
-                result[code.textContent.trim()] = {
-                    hash: name.childNodes[0].attrs['href'].split('/').reverse()[0],
-                    name: name.textContent.trim(),
-                    type: code.attrs['class'].split(' ')[0].trim().replace('cc-c', 'c-type')
+
+                if(code.attrs['class'].split(' ').length > 0) {
+                    result[code.textContent.trim()] = {
+                        hash: name.childNodes[0].attrs['href'].split('/').reverse()[0],
+                        name: name.textContent.trim(),
+                        type: code.attrs['class'].split(' ')[0].trim().replace('cc-c', 'c-type')
+                    }
                 }
             })
             return resolve(result);
