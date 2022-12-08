@@ -1,0 +1,15 @@
+{
+  "name": "lops-parser-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tuukka Moilanen",
+  "license": "ISC",
+  "dependencies": {
+    "node-html-parser": "^6.1.4",
+    "request": "^2.88.2"
+  }
+}

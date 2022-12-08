@@ -1,0 +1,11 @@
+#node_modules
+node_modules
+
+# package-lock
+package-lock.json
+
+# authentication that contains Wilma2SID
+auth.json
+
+# result
+lops.json
