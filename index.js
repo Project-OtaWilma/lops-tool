@@ -48,7 +48,7 @@ const fetchCourses = (hash) => {
             document.getElementsByTagName('tr').filter(tr => tr.childNodes.length == 5).forEach(tr => {
                 const [code, name] = tr.childNodes.filter(td => td.textContent.trim());
 
-                if(code.attrs['class'].split(' ').length > 0) {
+                if(name.childNodes[0] && code.attrs['class'].split(' ').length > 0) {
                     result[code.textContent.trim()] = {
                         hash: name.childNodes[0].attrs['href'].split('/').reverse()[0],
                         name: name.textContent.trim(),
@@ -74,13 +74,11 @@ const fetchCourse = (hash) => {
             const result = {}
 
             const document = parse(res.body);
-            if(code.attrs['class'].split(' ').length > 0) {
-                document.getElementsByTagName('table')[1].getElementsByTagName('tr').forEach(tr => {
-                    const [key, raw] = tr.childNodes;
-                    const value = raw.textContent.trim();
-                    result[key.textContent.trim()] = !Number.isNaN(Number.parseFloat(value)) ? Number.parseFloat(value) : value;
-                })
-            }
+            document.getElementsByTagName('table')[1].getElementsByTagName('tr').forEach(tr => {
+                const [key, raw] = tr.childNodes;
+                const value = raw.textContent.trim();
+                result[key.textContent.trim()] = !Number.isNaN(Number.parseFloat(value)) ? Number.parseFloat(value) : value;
+            })
 
             // Why is this even a thing?
             delete result['Ilmoittautuneita'];
