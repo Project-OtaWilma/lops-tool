@@ -77,7 +77,7 @@ const fetchCourse = (hash) => {
             document.getElementsByTagName('table')[1].getElementsByTagName('tr').forEach(tr => {
                 const [key, raw] = tr.childNodes;
                 const value = raw.textContent.trim();
-                result[key.textContent.trim()] = !Number.isNaN(Number.parseFloat(value)) ? Number.parseFloat(value) : value;
+                result[key.textContent.trim()] = !Number.isNaN(+(value.replace(',', '.'))) ? Number.parseFloat(value.replace(',', '.')) : value;
             })
 
             // Why is this even a thing?
@@ -103,8 +103,8 @@ const main = async () => {
             map[subject] = courses;
             
             console.log(subject);
+            fs.writeFileSync('./lops.json', JSON.stringify(map), {encoding: 'utf-8'});
         }
-        fs.writeFileSync('./lops.json', JSON.stringify(map), {encoding: 'utf-8'});
         console.log('Done!');
     })
 }
